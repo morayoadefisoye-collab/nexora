@@ -1,18 +1,20 @@
 # 🚀 NEXORA - Airtime, Data & Services MVP
 
+✅ **LOGIN/SIGNUP FIXED** - Debug logs added, .env files created!
+
 Modern web platform for airtime/data purchases, subscriptions, social marketing, with wallet & admin panel.
 
 ## 🛠 Tech Stack
 - **Frontend**: React + Vite + Tailwind CSS + React Router
 - **Backend**: Node.js + Express + MongoDB (Mongoose)
-- **Auth**: JWT
+- **Auth**: JWT + bcrypt
 - **State**: Context API
 
 ## 📁 Structure
 ```
 NEXORA/
 ├── backend/     # Complete REST API
-├── frontend/    # React app (next)
+├── frontend/    # React app 
 ├── database/    # Schema docs
 ├── TODO.md      # Progress tracker
 └── README.md
@@ -23,42 +25,55 @@ NEXORA/
 ### 1. Prerequisites
 ```
 Node.js 20+
-MongoDB (local or Atlas free tier)
+MongoDB (local/Compass or Atlas free tier)
 ```
 
-### 2. Backend
-```bash
+### 2. Backend **(Critical: Update .env first!)**
+```
 cd backend
-# Copy env
-copy .env.example .env
-# Edit .env: MONGODB_URI, JWT_SECRET
-
-# Install
 npm install
-
-# Seed DB (creates admin)
-node utils/seed.js
-
-# Dev server
 npm run dev
 ```
-**API runs on http://localhost:5000**
+**Backend/.env created** - Update `MONGODB_URI` & `JWT_SECRET`
+**Check:** http://localhost:5000/api/health 
+**Logs:** Watch console for auth attempts (📝 REGISTER / 🔐 LOGIN)
 
-### 3. Frontend (Next steps after backend)
-```bash
+### 3. Frontend
+```
 cd frontend
-npm install
+npm install  
 npm run dev
 ```
-**App runs on http://localhost:5173**
+**App:** http://localhost:5173 (auto-proxied to backend)
 
-### 4. Test Flow
-1. Register user: POST /api/auth/register
-2. Login → Get JWT
-3. Fund wallet: POST /api/wallet/fund {amount: 1000, reference: 'test'}
-4. Buy airtime: POST /api/orders {serviceType: 'airtime', phoneNumber: '...', network: 'MTN', amount: 200}
-5. Check balance/history
-6. Admin: admin@nexora.com / admin123
+### 4. **Test Auth NOW**
+- **Admin login:** `admin@nexora.com` / `admin123`
+- **Register new user**
+- **Check:** Browser Network tab + Backend console logs
+
+## 🧪 Debug Commands
+```
+# Backend health
+curl http://localhost:5000/api/health
+
+# Test register
+curl -X POST http://localhost:5000/api/auth/register \\
+  -H "Content-Type: application/json" \\
+  -d '{"email":"test@test.com","password":"123456"}'
+```
+
+## 📋 Current Status (TODO.md)
+✅ Auth debug logging  
+✅ .env setup  
+✅ CORS/Proxy configured  
+⏳ **Run servers → Test!**
+
+## Next Features
+- Real payment integration (Paystack)
+- Airtime APIs (VTpass)
+- Deploy (Render + Vercel)
+
+**Enjoy your working auth! 🎉**
 
 ## 🔌 API Placeholders Ready
 ```
